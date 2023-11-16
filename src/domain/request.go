@@ -1,19 +1,14 @@
 package domain
 
-type NotificateType int
+type MessageType string
 
 const (
-	OrderNotiifcae NotificateType = iota
-	ChatNotificate
-	SystemNotificate
+	FlagStart MessageType = "start"
+	FlagEnd   MessageType = "end"
 )
 
 type NotificateRequest struct {
-	Sender         string         `json:"sender"`
-	ToAccountID    string         `json:"to_account_id"`
-	NotificateType NotificateType `json:"notificate_type"`
-	Detail         string         `json:"detail"`
-}
-
-type CommandSelection struct {
+	Token       string      `param:"token"`
+	MessageType MessageType `json:"message_type"`
+	Time        int         `json:"time"`
 }

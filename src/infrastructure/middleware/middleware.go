@@ -1,14 +1,11 @@
 package middleware
 
 import (
-	"log"
-
 	"github.com/Nagoya-Caravan-Hackathon-PDD/game-back/pkg/paseto"
 	"github.com/labstack/echo/v4"
 )
 
 type middleware struct {
-	e     *echo.Echo
 	maker paseto.Maker
 }
 
@@ -16,8 +13,8 @@ type Middleware interface {
 	Auth(next echo.HandlerFunc) echo.HandlerFunc
 }
 
-func NewMiddleware(e *echo.Echo, maker paseto.Maker) Middleware {
-	return &middleware{e: e, maker: maker}
+func NewMiddleware(maker paseto.Maker) Middleware {
+	return &middleware{maker: maker}
 }
 
 const (
@@ -30,17 +27,12 @@ type authtoken struct {
 
 func (m *middleware) Auth(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(ctx echo.Context) error {
-		var token authtoken
-		if err := ctx.Bind(&token); err != nil {
-			log.Println(err)
+		token := ctx.Param("token")
+		if len(token) == 0 {
 			return echo.ErrBadRequest
 		}
 
-		if len(token.Token) == 0 {
-			return echo.ErrBadRequest
-		}
-
-		paylaod, err := m.velifyPaseto(token.Token)
+		paylaod, err := m.velifyPaseto(token)
 		if err != nil {
 			return err
 		}

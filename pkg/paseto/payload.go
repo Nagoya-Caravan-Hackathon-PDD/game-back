@@ -33,8 +33,8 @@ func NewPayload(game_id string, owner_id string, duration time.Duration) (*Paylo
 }
 
 func (payload *Payload) Valid() error {
-	if time.Now().After(payload.ExpiredAt) {
-		return ErrExpiredToken
-	}
+	// if time.Now().After(payload.ExpiredAt) {
+	// 	return ErrExpiredToken
+	// }
 	return nil
 }

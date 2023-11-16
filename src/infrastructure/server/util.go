@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/Nagoya-Caravan-Hackathon-PDD/game-back/cmd/config"
+
 	"github.com/labstack/echo/v4"
 )
 
@@ -21,7 +22,6 @@ func runWithGracefulShutdown(server *echo.Echo) {
 		Addr:    config.Config.Server.Port,
 		Handler: server,
 	}
-	log.Println(httpServer.Addr)
 
 	go func() {
 		log.Println("server started")
