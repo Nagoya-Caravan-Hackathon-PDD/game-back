@@ -3,8 +3,10 @@ package domain
 type MessageType string
 
 const (
-	FlagStart MessageType = "start"
-	FlagEnd   MessageType = "end"
+	FlagStart  MessageType = "start"
+	FlagTurn   MessageType = "turn"
+	FlagResult MessageType = "result"
+	FlagEnd    MessageType = "end"
 )
 
 type NotificateRequest struct {
